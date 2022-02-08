@@ -1,24 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 
-function Pet() {
+function Pet({petInfo}) {
+  const [isClicked, setIsClicked] = useState(false)
+
+  function handleClick() {
+    setIsClicked(isClicked => !isClicked)
+  }
+
   return (
     <div className="card" data-testid="pet">
       <div className="content">
         <span className="header">
-          {/*'♀' OR '♂' */}
-          PET NAME
+          {petInfo.gender === "male" ? "♂" : "♀"}
+          {petInfo.name}
         </span>
         <div className="meta">
-          <span className="date">PET TYPE</span>
+          <span className="date">{petInfo.type}</span>
         </div>
         <div className="description">
-          <p>Age: PET AGE</p>
-          <p>Weight: PET WEIGHT</p>
+          <p>Age: {petInfo.age}</p>
+          <p>Weight: {petInfo.weight}</p>
         </div>
       </div>
       <div className="extra content">
-        <button className="ui disabled button">Already adopted</button>
-        <button className="ui primary button">Adopt pet</button>
+        {isClicked ? <button className="ui disabled button">Already adopted</button> : <button onClick={handleClick} className="ui primary button">Adopt pet</button>}
+        
+        
       </div>
     </div>
   );
